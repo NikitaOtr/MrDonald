@@ -10,6 +10,5 @@ const StyledBanner = styled.div`
 `;
 
 export const Banner = () => (
-    <StyledBanner>
-    </StyledBanner>
+    <StyledBanner></StyledBanner>
 );

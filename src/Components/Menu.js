@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import dbMenu from './DBMenu';
+import dbMenu from '../DB/DBMenu';
 import { ListItem } from './ListItem';
 
 const MenuStyled = styled.main`
@@ -16,16 +16,16 @@ const H2 = styled.h2`
     margin-bottom: 20px;
 `;
 
-export const Menu = () => (
+export const Menu = ({ setOpenItem }) => (
     <MenuStyled>
         <SectionMenu>
             <H2>Бургеры</H2>
-            <ListItem itemList={dbMenu.burger}></ListItem>
+            <ListItem itemList={dbMenu.burger} setOpenItem={setOpenItem}></ListItem>
         </SectionMenu>
 
         <SectionMenu>
             <H2>Закуски / Напитки</H2>
-            <ListItem itemList={dbMenu.other}></ListItem>
+            <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem}></ListItem>
         </SectionMenu>
     </MenuStyled>
 );
