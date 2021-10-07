@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import dbMenu from '../DB/DBMenu';
-import { ListItem } from './ListItem';
+import { MenuList } from './MenuList';
 
-const MenuStyled = styled.main`
-    background-color: #ccc;
+const MenuStyled = styled.section`
+    width: 70%;
+    background-color: inherit;
+    border-left: black solid;
+
 `;
 
 const SectionMenu = styled.section`
@@ -18,14 +21,15 @@ const H2 = styled.h2`
 
 export const Menu = ({ setOpenItem }) => (
     <MenuStyled>
+
         <SectionMenu>
             <H2>Бургеры</H2>
-            <ListItem itemList={dbMenu.burger} setOpenItem={setOpenItem}></ListItem>
+            <MenuList itemList={dbMenu.burger} setOpenItem={setOpenItem}></MenuList>
         </SectionMenu>
 
         <SectionMenu>
             <H2>Закуски / Напитки</H2>
-            <ListItem itemList={dbMenu.other} setOpenItem={setOpenItem}></ListItem>
+            <MenuList itemList={dbMenu.other} setOpenItem={setOpenItem}></MenuList>
         </SectionMenu>
     </MenuStyled>
 );

@@ -20,11 +20,11 @@ const Logo = styled.div`
 `;
 
 const H1 = styled.h1`
-    font-size: 24px;
+    font-size: 35px;
 `;
 
 const ImgLogo = styled.img`
-    width: 50px;
+    width: 60px;
 `;
 
 const ButtonEnter = styled.button`
@@ -32,14 +32,11 @@ const ButtonEnter = styled.button`
     border: transparent;
     color: white;
     padding: 0;
+    font-size: 16px;
 `;
 
 const ImgEnter = styled.img`
-    width: 30px;
-`;
-
-const TextEnter = styled.p`
-    font-size: 16px;
+    width: 40px;
 `;
 
 export const NavBar = () => (
@@ -50,7 +47,7 @@ export const NavBar = () => (
         </Logo>
         <ButtonEnter>
             <ImgEnter src={enterImg} alt='enter'></ImgEnter>
-            <TextEnter>Вход</TextEnter>
+            <p>Вход</p>
         </ButtonEnter>
     </NavBarStyled>
 );

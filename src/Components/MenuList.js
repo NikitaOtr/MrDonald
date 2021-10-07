@@ -40,7 +40,7 @@ const Item = styled.li`
     }
 `;
 
-export const ListItem = ({ itemList, setOpenItem }) => (
+export const MenuList = ({ itemList, setOpenItem }) => (
     <List>
         {itemList.map(item => (
             <Item key={item.id} img={item.img}

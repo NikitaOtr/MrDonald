@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Button } from './Button';
 
 const Overlay = styled.div`
     position: fixed;
@@ -36,21 +37,10 @@ const Content = styled.div`
     justify-content: space-between;
 `;
 
-const Header = styled.div`
+const HeaderContent = styled.div`
     font-size: 30px;
     display: flex;
     justify-content: space-between;
-`;
-
-const Button = styled.button`
-    margin: 0 auto;
-    width: 250px;
-    height: 65px;
-    font-size: 21px;
-    background: #299B01;
-    color: white;
-    border-radius: 10px;
-    border: transparent;
 `;
 
 const Price = styled.p`
@@ -73,10 +63,10 @@ export const ModalItem = ({ openItem,  setOpenItem }) => {
             <Modal>
                 <Banner img={openItem.img}></Banner>
                 <Content>
-                    <Header>
+                    <HeaderContent>
                         <h3>{openItem.name}</h3>
                         <Price>{openItem.price.toLocaleString('ru-Ru', { style: 'currency', currency: 'RUB' })}</Price>
-                    </Header>
+                    </HeaderContent>
                     <Button>Заказать</Button>
                 </Content>
             </Modal>
