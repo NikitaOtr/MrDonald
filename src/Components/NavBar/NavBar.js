@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import logoImg from '../image/logo.svg';
-import enterImg from '../image/sign.svg';
+import logoImg from '../../image/logo.svg';
+import enterImg from '../../image/sign.svg';
 
 const NavBarStyled = styled.header`
     height: 80px;
@@ -42,11 +42,11 @@ const ImgEnter = styled.img`
 export const NavBar = () => (
     <NavBarStyled>
         <Logo>
-            <ImgLogo src={logoImg} alt='logo'></ImgLogo>
-            <H1>{"MrDonald's"}</H1>
+            <ImgLogo src={logoImg} alt='logo'/>
+            <H1>{'MrDonald\'s'}</H1>
         </Logo>
         <ButtonEnter>
-            <ImgEnter src={enterImg} alt='enter'></ImgEnter>
+            <ImgEnter src={enterImg} alt='enter'/>
             <p>Вход</p>
         </ButtonEnter>
     </NavBarStyled>

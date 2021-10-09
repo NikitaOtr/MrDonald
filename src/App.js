@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { GlobalStyle } from './Components/GlobalStyle';
-import { NavBar } from './Components/NavBar';
-import { Banner } from './Components/Banner';
-import { Menu } from './Components/Menu';
-import { ModalItem } from './Components/ModalItem';
-import { Order } from './Components/Order';
+import { GlobalStyle } from './Components/GlobalStyle/GlobalStyle';
+import { NavBar } from './Components/NavBar/NavBar';
+import { Banner } from './Components/Banner/Banner';
+import { Menu } from './Components/Menu/Menu';
+import { ModalItem } from './Components/Modal/ModalItem';
+import { Order } from './Components/Order/Order';
+
+import { useOpenItem } from './Components/Hooks/useOpenItem';
+import { useOrder } from './Components/Hooks/useOrder';
 
 const Main = styled.div`
     display: flex;
@@ -13,18 +16,20 @@ const Main = styled.div`
     background-color: #fff;
 `;
 function App() {
-    const [openItem, setOpenItem] = React.useState(null);
+
+    const openItem = useOpenItem();
+    const order = useOrder();
 
     return (
         <>
-            <GlobalStyle></GlobalStyle>
-            <NavBar></NavBar>
-            <Banner></Banner>
+            <GlobalStyle/>
+            <NavBar/>
+            <Banner/>
             <Main>
-                <Order></Order>
-                <Menu setOpenItem={setOpenItem}></Menu>
+                <Order {...order}/>
+                <Menu {...openItem}/>
             </Main>
-            <ModalItem openItem={openItem} setOpenItem={setOpenItem}></ModalItem>
+            { openItem.openItem && <ModalItem {...openItem} {...order}/>}
         </>
     );
 }

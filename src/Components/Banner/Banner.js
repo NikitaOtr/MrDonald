@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import banner from '../image/banner.png';
+import banner from '../../image/banner.png';
 
 const StyledBanner = styled.div`
     background-image: url(${banner});
@@ -10,5 +10,5 @@ const StyledBanner = styled.div`
 `;
 
 export const Banner = () => (
-    <StyledBanner></StyledBanner>
+    <StyledBanner/>
 );

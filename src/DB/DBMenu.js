@@ -1,5 +1,5 @@
 const dbMenu = {
-    burger: [
+    burgers: [
         {
             name: 'JS Burger',
             img: '/menu/js-burger.png',

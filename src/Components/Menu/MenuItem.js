@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const List = styled.ul`
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 20px;
-`;
-
 const Item = styled.li`
     list-style: none;
     position: relative;
@@ -40,14 +33,10 @@ const Item = styled.li`
     }
 `;
 
-export const MenuList = ({ itemList, setOpenItem }) => (
-    <List>
-        {itemList.map(item => (
-            <Item key={item.id} img={item.img}
-                onClick={() => setOpenItem(item)}>
-                <p>{item.name}</p>
-                <p>{item.price.toLocaleString('ru-Ru', { style: 'currency', currency: 'RUB' })}</p>
-            </Item>
-        ))}
-    </List>
+export const MenuItem = ({ dish, setOpenItem }) => (
+    <Item key={dish.id} img={dish.img}
+        onClick={() => setOpenItem(dish)}>
+        <p>{dish.name}</p>
+        <p>{dish.price.toLocaleString('ru-Ru', { style: 'currency', currency: 'RUB' })}</p>
+    </Item>
 );
