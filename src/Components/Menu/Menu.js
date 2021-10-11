@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import dbMenu from '../../DB/DBMenu';
+
 import { MenuItem } from './MenuItem';
 
 const MenuStyled = styled.section`
@@ -31,14 +33,14 @@ export const Menu = ({ setOpenItem }) => (
         <Section>
             <H2>Бургеры</H2>
             <List>
-                {dbMenu.burgers.map(burger => <MenuItem key={burger.id} dish={burger} setOpenItem={setOpenItem}/>)}
+                {dbMenu.burgers.map(item => <MenuItem key={item.id} item={item} setOpenItem={setOpenItem}/>)}
             </List>
         </Section>
 
         <Section>
             <H2>Закуски / Напитки</H2>
             <List>
-                {dbMenu.other.map(item => <MenuItem key={item.id} dish={item} setOpenItem={setOpenItem}/>)}
+                {dbMenu.other.map(item => <MenuItem key={item.id} item={item} setOpenItem={setOpenItem}/>)}
             </List>
         </Section>
     </MenuStyled>

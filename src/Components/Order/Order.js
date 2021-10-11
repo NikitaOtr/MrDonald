@@ -1,7 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button } from '../Buttons/Button';
+
+import { Button } from '../Buttons/Mainbutton';
 import { OrderItem } from './OrderItem';
+
+import { priceToLocale } from '../Functions/priceToLocale';
+import { totalPriceOrder } from '../Functions/totalPriceOrder';
 
 const OrderStyled = styled.div`
     width: 30%;
@@ -46,17 +50,15 @@ export const Order = ({ order }) => (
         <Content>
             {order.length ?
                 <List>
-                    {order.map(dish => <OrderItem key={dish.name} dish={dish}/>)}
+                    {/* ToDo index!!!!! */}
+                    {order.map((item, index) => <OrderItem key={index} item={item}/>)}
                 </List> :
                 <EmptyList>Список заказов пуст</EmptyList>
             }
         </Content>
         <Total>
             <span>Итого</span>
-            <span>
-                {order.reduce((totalSum, dish) => totalSum + dish.price, 0).toLocaleString('ru-Ru',
-                    { style: 'currency', currency: 'RUB' })}
-            </span>
+            <span>{priceToLocale(totalPriceOrder(order))}</span>
         </Total>
         <Button>Оформить</Button>
     </OrderStyled>

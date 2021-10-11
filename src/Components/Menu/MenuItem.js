@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { priceToLocale } from '../Functions/priceToLocale';
+
 const Item = styled.li`
     list-style: none;
     position: relative;
@@ -33,10 +35,9 @@ const Item = styled.li`
     }
 `;
 
-export const MenuItem = ({ dish, setOpenItem }) => (
-    <Item key={dish.id} img={dish.img}
-        onClick={() => setOpenItem(dish)}>
-        <p>{dish.name}</p>
-        <p>{dish.price.toLocaleString('ru-Ru', { style: 'currency', currency: 'RUB' })}</p>
+export const MenuItem = ({ item, setOpenItem }) => (
+    <Item img={item.img} onClick={() => setOpenItem(item)}>
+        <p>{item.name}</p>
+        <p>{priceToLocale(item.price)}</p>
     </Item>
 );

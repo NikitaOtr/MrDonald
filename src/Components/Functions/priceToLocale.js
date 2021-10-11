@@ -1,0 +1,1 @@
+export const priceToLocale = price => price.toLocaleString('ru-Ru', { style: 'currency', currency: 'RUB' });

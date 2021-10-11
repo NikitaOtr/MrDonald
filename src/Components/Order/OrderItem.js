@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import trash from '../../image/trash.svg';
+
+import { priceToLocale } from '../Functions/priceToLocale';
+import { totalPriceItem } from '../Functions/totalPriceItem';
 
 const StyleOrderItem = styled.li`
     display: flex;
@@ -22,7 +26,7 @@ const Count = styled.span`
 `;
 
 const Price = styled.span`
-    width: 100px;
+    width: 120px;
     text-align: right;
 `;
 
@@ -38,12 +42,12 @@ const TrashButton = styled.button`
     cursor: pointer;
 `;
 
-export const OrderItem = ({ dish }) => (
+export const OrderItem = ({ item }) => (
     <StyleOrderItem>
         <Content>
-            <Name>{dish.name}</Name>
-            <Count>1</Count>
-            <Price>{dish.price.toLocaleString('ru-Ru', { style: 'currency', currency: 'RUB' })}</Price>
+            <Name>{item.name}</Name>
+            <Count>{item.count}</Count>
+            <Price>{priceToLocale(totalPriceItem(item))}</Price>
         </Content>
         <TrashButton/>
     </StyleOrderItem>

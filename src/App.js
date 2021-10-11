@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import { GlobalStyle } from './Components/GlobalStyle/GlobalStyle';
 import { NavBar } from './Components/NavBar/NavBar';
 import { Banner } from './Components/Banner/Banner';
@@ -15,6 +16,7 @@ const Main = styled.div`
     flex-direction: row;
     background-color: #fff;
 `;
+
 function App() {
 
     const openItem = useOpenItem();
