@@ -6,6 +6,7 @@ import trash from '../../image/trash.svg';
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceItem } from '../Functions/totalPriceItem';
 
+
 const StyleOrderItem = styled.li`
     display: flex;
 `;
@@ -42,13 +43,19 @@ const TrashButton = styled.button`
     cursor: pointer;
 `;
 
-export const OrderItem = ({ item }) => (
-    <StyleOrderItem>
-        <Content>
-            <Name>{item.name}</Name>
-            <Count>{item.count}</Count>
-            <Price>{priceToLocale(totalPriceItem(item))}</Price>
-        </Content>
-        <TrashButton/>
-    </StyleOrderItem>
-);
+export const OrderItem = ({ item }) => {
+    const checkedNameToppings = item.toppings?.filter(topping => topping.checked).map(topping => topping.name);
+    return (
+        <div>
+            <StyleOrderItem>
+                <Content>
+                    <Name>{item.name}</Name>
+                    <Count>{item.count}</Count>
+                    <Price>{priceToLocale(totalPriceItem(item))}</Price>
+                </Content>
+                <TrashButton/>
+            </StyleOrderItem>
+            {checkedNameToppings?.length > 0 && 'Топинги: ' + checkedNameToppings.join(', ')}
+        </div>
+    );
+};

@@ -28,7 +28,7 @@ const Content = styled.div`
 const List = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 30px;
     margin-bottom: 20px;
 `;
 
@@ -50,7 +50,6 @@ export const Order = ({ order }) => (
         <Content>
             {order.length ?
                 <List>
-                    {/* ToDo index!!!!! */}
                     {order.map((item, index) => <OrderItem key={index} item={item}/>)}
                 </List> :
                 <EmptyList>Список заказов пуст</EmptyList>

@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 import { CountItem } from './CountItem';
 import { Button } from '../Buttons/Mainbutton';
+import { Toppings } from './Toppings';
 
 import { useCountItem } from '../Hooks/useCountItem';
+import { useTopping } from '../Hooks/useTopping';
 
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceItem } from '../Functions/totalPriceItem';
@@ -65,6 +67,7 @@ const TotalPriceItem = styled.div`
 export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
 
     const counter = useCountItem();
+    const toppings = useTopping(openItem);
 
     const closeModal = event => {
         if (event.target.matches('#overlay')) { setOpenItem(null); }
@@ -73,6 +76,7 @@ export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
     const newOrderItem = {
         ...openItem,
         count: counter.count,
+        toppings: toppings.toppings,
     };
 
     const addToOrder = () => {
@@ -90,6 +94,7 @@ export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
                         <Price>{priceToLocale(openItem.price)}</Price>
                     </HeaderContent>
                     <CountItem {...counter}/>
+                    {openItem.toppings && <Toppings {...toppings}/>}
                     <TotalPriceItem>
                         <span>Цена:</span>
                         <span>{priceToLocale(totalPriceItem(newOrderItem))}</span>

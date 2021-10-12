@@ -11,7 +11,7 @@ const dbMenu = {
             name: 'Borsh Burger',
             img: '/menu/borsh-burger.png',
             id: 2,
-            price: 499.9,
+            price: 500,
             toppings: ['Бекон', 'Красный лук'],
         },
         {
@@ -31,7 +31,7 @@ const dbMenu = {
             name: 'React Burger',
             img: '/menu/react-burger.png',
             id: 5,
-            price: 299.9,
+            price: 400,
             toppings: ['Кетчуп', 'Сыр Чеддер'],
         },
         {
@@ -61,7 +61,7 @@ const dbMenu = {
             name: 'French fries',
             img: '/menu/french-fries.png',
             id: 3,
-            price: 75,
+            price: 80,
         },
         {
             name: 'Nagents',
@@ -81,7 +81,7 @@ const dbMenu = {
             name: 'Latte',
             img: '/menu/green-coffee.png',
             id: 6,
-            price: 175.25
+            price: 100
         },
     ]
 };
