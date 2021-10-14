@@ -20,12 +20,12 @@ const Logo = styled.div`
     gap: 15px;
 `;
 
-const H1 = styled.h1`
-    font-size: 35px;
-`;
-
 const ImgLogo = styled.img`
     width: 60px;
+`;
+
+const H1 = styled.h1`
+    font-size: 35px;
 `;
 
 const ButtonEnter = styled.button`

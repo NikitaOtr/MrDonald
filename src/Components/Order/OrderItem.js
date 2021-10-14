@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import trash from '../../image/trash.svg';
 
 import { priceToLocale } from '../Functions/priceToLocale';
-import { totalPriceItem } from '../Functions/totalPriceItem';
+import { totalPriceDish } from '../Functions/totalPriceDish';
 
 
 const StyleOrderItem = styled.li`
@@ -43,19 +43,33 @@ const TrashButton = styled.button`
     cursor: pointer;
 `;
 
-export const OrderItem = ({ item }) => {
-    const checkedNameToppings = item.toppings?.filter(topping => topping.checked).map(topping => topping.name);
+const Toppings = styled.div`
+    color: #9a9a9a;
+    font-size: 16px;
+`;
+
+export const OrderItem = ({ dish, order, setOrder }) => {
+
+    const checkedNameToppings = dish.toppings.filter(topping => topping.checked).map(topping => topping.name);
+
+    const deleteDish = deleteDish => {
+        const newOrder = order.filter(dish => dish !== deleteDish);
+        setOrder(newOrder);
+    };
+
     return (
         <div>
             <StyleOrderItem>
                 <Content>
-                    <Name>{item.name}</Name>
-                    <Count>{item.count}</Count>
-                    <Price>{priceToLocale(totalPriceItem(item))}</Price>
+                    <Name>{dish.name} {dish.choice}</Name>
+                    <Count>{dish.count}</Count>
+                    <Price>{priceToLocale(totalPriceDish(dish))}</Price>
                 </Content>
-                <TrashButton/>
+                <TrashButton onClick={() => deleteDish(dish)}/>
             </StyleOrderItem>
-            {checkedNameToppings?.length > 0 && 'Топинги: ' + checkedNameToppings.join(', ')}
+            {checkedNameToppings.length > 0 &&
+                <Toppings><p>{'Топинги: ' + checkedNameToppings.join(', ')}</p></Toppings>
+            }
         </div>
     );
 };

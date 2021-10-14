@@ -23,10 +23,10 @@ export const Toppings = ({ toppings, checkToppings  }) => (
     <>
         <h3>Топинги</h3>
         <ToppingWrap>
-            {toppings.map((item, index)  => (
+            {toppings.map((topping, index)  => (
                 <ToppingLabel key={index}>
-                    <ToppingChackbox type='checkbox' checked={item.checked} onChange={() => checkToppings(index)}/>
-                    {item.name}
+                    <ToppingChackbox type='checkbox' checked={topping.checked} onChange={() => checkToppings(index)}/>
+                    {topping.name}
                 </ToppingLabel>
             ))}
         </ToppingWrap>

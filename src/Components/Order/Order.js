@@ -32,6 +32,11 @@ const List = styled.ul`
     margin-bottom: 20px;
 `;
 
+const EmptyList = styled.p`
+    font-size: 25px;
+    text-align: center;
+`;
+
 const Total = styled.div`
     font-size: 20px;
     margin-bottom: 20px;
@@ -39,18 +44,13 @@ const Total = styled.div`
     justify-content: space-between;
 `;
 
-const EmptyList = styled.p`
-    font-size: 25px;
-    text-align: center;
-`;
-
-export const Order = ({ order }) => (
+export const Order = ({ order, setOrder }) => (
     <OrderStyled>
         <Title>Ваш Заказ</Title>
         <Content>
             {order.length ?
                 <List>
-                    {order.map((item, index) => <OrderItem key={index} item={item}/>)}
+                    {order.map((dish, index) => <OrderItem key={index} dish={dish} setOrder={setOrder} order={order}/>)}
                 </List> :
                 <EmptyList>Список заказов пуст</EmptyList>
             }

@@ -18,13 +18,13 @@ const ButtonCount = styled.button`
 
 `;
 
-export const CountItem = ({ count, setCount, onChange }) => (
+export const CountDish = ({ countDish, setCountDish, onChangeCountDish }) => (
     <CountWrapper>
         <span>Количество</span>
         <div>
-            <ButtonCount disabled={count <= 1} onClick={() => setCount(count - 1)}>-</ButtonCount>
-            <CountInput value={count} onChange={onChange} type='number' min='1' max='99'/>
-            <ButtonCount disabled={count >= 99} onClick={() => setCount(count + 1)}>+</ButtonCount>
+            <ButtonCount disabled={countDish <= 1} onClick={() => setCountDish(countDish - 1)}>-</ButtonCount>
+            <CountInput value={countDish} onChange={onChangeCountDish} type='number' min='1' max='99'/>
+            <ButtonCount disabled={countDish >= 99} onClick={() => setCountDish(countDish + 1)}>+</ButtonCount>
         </div>
     </CountWrapper>
 );

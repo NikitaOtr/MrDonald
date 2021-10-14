@@ -18,4 +18,9 @@ export const Button = styled.button`
         border-color: #299B01;
         transition: all .3s;
     }
+    &:disabled {
+        color:#bbb;
+        background-color: #ccc;
+        border-color: #aaa;
+    }
 `;

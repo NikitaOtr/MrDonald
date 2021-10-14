@@ -1,15 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CountItem } from './CountItem';
+import { CountDish } from './CountDish';
 import { Button } from '../Buttons/Mainbutton';
 import { Toppings } from './Toppings';
+import { Choices } from './Choices';
 
-import { useCountItem } from '../Hooks/useCountItem';
+import { useCountDish } from '../Hooks/useCountDish';
 import { useTopping } from '../Hooks/useTopping';
+import { useChoice } from '../Hooks/useChoice';
 
 import { priceToLocale } from '../Functions/priceToLocale';
-import { totalPriceItem } from '../Functions/totalPriceItem';
+import { totalPriceDish } from '../Functions/totalPriceDish';
 
 const Overlay = styled.div`
     position: fixed;
@@ -64,23 +66,28 @@ const TotalPriceItem = styled.div`
     justify-content: center;
 `;
 
-export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
+export const ModalDish = ({ openItem,  setOpenItem, order, setOrder }) => {
 
-    const counter = useCountItem();
-    const toppings = useTopping(openItem);
+    const hookCount = useCountDish();
+    const hookToppings = useTopping(openItem);
+    const hookChoice = useChoice();
 
     const closeModal = event => {
         if (event.target.matches('#overlay')) { setOpenItem(null); }
     };
 
-    const newOrderItem = {
-        ...openItem,
-        count: counter.count,
-        toppings: toppings.toppings,
+    const newOrderOfDish = {
+        id: openItem.id,
+        img: openItem.img,
+        name: openItem.name,
+        price: openItem.price,
+        count: hookCount.countDish,
+        toppings: hookToppings.toppings,
+        choice: hookChoice.choice,
     };
 
     const addToOrder = () => {
-        setOrder([...order, newOrderItem]);
+        setOrder([...order, newOrderOfDish]);
         setOpenItem(null);
     };
 
@@ -93,13 +100,16 @@ export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
                         <h3>{openItem.name}</h3>
                         <Price>{priceToLocale(openItem.price)}</Price>
                     </HeaderContent>
-                    <CountItem {...counter}/>
-                    {openItem.toppings && <Toppings {...toppings}/>}
+                    <CountDish {...hookCount}/>
+                    {openItem.toppings && <Toppings {...hookToppings}/>}
+                    {openItem.choices && <Choices {...hookChoice} {...openItem}/>}
                     <TotalPriceItem>
                         <span>Цена:</span>
-                        <span>{priceToLocale(totalPriceItem(newOrderItem))}</span>
+                        <span>{priceToLocale(totalPriceDish(newOrderOfDish))}</span>
                     </TotalPriceItem>
-                    <Button onClick={addToOrder}>Заказать</Button>
+                    <Button onClick={addToOrder} disabled={openItem.choices && !newOrderOfDish.choice}>
+                        Заказать
+                    </Button>
                 </Content>
             </Modal>
         </Overlay>

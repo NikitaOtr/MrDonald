@@ -5,7 +5,7 @@ import { GlobalStyle } from './Components/GlobalStyle/GlobalStyle';
 import { NavBar } from './Components/NavBar/NavBar';
 import { Banner } from './Components/Banner/Banner';
 import { Menu } from './Components/Menu/Menu';
-import { ModalItem } from './Components/Modal/ModalItem';
+import { ModalDish } from './Components/Modal/ModalDish';
 import { Order } from './Components/Order/Order';
 
 import { useOpenItem } from './Components/Hooks/useOpenItem';
@@ -19,8 +19,8 @@ const Main = styled.div`
 
 function App() {
 
-    const openItem = useOpenItem();
-    const order = useOrder();
+    const hookOpenItem = useOpenItem();
+    const hookOrder = useOrder();
 
     return (
         <>
@@ -28,10 +28,10 @@ function App() {
             <NavBar/>
             <Banner/>
             <Main>
-                <Order {...order}/>
-                <Menu {...openItem}/>
+                <Order {...hookOrder}/>
+                <Menu {...hookOpenItem}/>
             </Main>
-            { openItem.openItem && <ModalItem {...openItem} {...order}/>}
+            {hookOpenItem.openItem && <ModalDish {...hookOpenItem} {...hookOrder}/>}
         </>
     );
 }

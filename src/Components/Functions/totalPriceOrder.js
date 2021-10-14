@@ -1,3 +1,3 @@
-import { totalPriceItem } from "./totalPriceItem";
+import { totalPriceDish } from "./totalPriceDish";
 
-export const totalPriceOrder = order => order.reduce((sum, item) => sum + totalPriceItem(item), 0);
+export const totalPriceOrder = order => order.reduce((sum, dish) => sum + totalPriceDish(dish), 0);
