@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { CountDish } from './CountDish';
+import { CountItem } from './CountItem';
 import { Button } from '../Buttons/Mainbutton';
 import { Toppings } from './Toppings';
 import { Choices } from './Choices';
 
-import { useCountDish } from '../Hooks/useCountDish';
-import { useTopping } from '../Hooks/useTopping';
-import { useChoice } from '../Hooks/useChoice';
+import { useCountItem } from '../Hooks/useCountItem';
+import { useToppings } from '../Hooks/useToppings';
+import { useChoices } from '../Hooks/useChoices';
 
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceDish } from '../Functions/totalPriceDish';
@@ -66,28 +66,34 @@ const TotalPriceItem = styled.div`
     justify-content: center;
 `;
 
-export const ModalDish = ({ openItem,  setOpenItem, order, setOrder }) => {
+export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
 
-    const hookCount = useCountDish();
-    const hookToppings = useTopping(openItem);
-    const hookChoice = useChoice();
+    const isEdit = openItem.index > -1;
+
+    const hookCountItem = useCountItem(openItem.selectedCount);
+    const hookToppings = useToppings(openItem.toppings, openItem.selectedToppings);
+    const hookChoices = useChoices(openItem.selectedChoice);
 
     const closeModal = event => {
         if (event.target.matches('#overlay')) { setOpenItem(null); }
     };
 
-    const newOrderOfDish = {
-        id: openItem.id,
-        img: openItem.img,
-        name: openItem.name,
-        price: openItem.price,
-        count: hookCount.countDish,
-        toppings: hookToppings.toppings,
-        choice: hookChoice.choice,
+    const newDish = {
+        ...openItem,
+        selectedCount: hookCountItem.countItem,
+        selectedToppings: hookToppings.toppings,
+        selectedChoice: hookChoices.choice,
+    };
+
+    const editOrder = () => {
+        const newOrder = [...order];
+        newOrder[openItem.index] = newDish;
+        setOrder(newOrder);
+        setOpenItem(null);
     };
 
     const addToOrder = () => {
-        setOrder([...order, newOrderOfDish]);
+        setOrder([...order, newDish]);
         setOpenItem(null);
     };
 
@@ -100,15 +106,16 @@ export const ModalDish = ({ openItem,  setOpenItem, order, setOrder }) => {
                         <h3>{openItem.name}</h3>
                         <Price>{priceToLocale(openItem.price)}</Price>
                     </HeaderContent>
-                    <CountDish {...hookCount}/>
+                    <CountItem {...hookCountItem}/>
                     {openItem.toppings && <Toppings {...hookToppings}/>}
-                    {openItem.choices && <Choices {...hookChoice} {...openItem}/>}
+                    {openItem.choices && <Choices {...openItem} {...hookChoices} />}
                     <TotalPriceItem>
                         <span>Цена:</span>
-                        <span>{priceToLocale(totalPriceDish(newOrderOfDish))}</span>
+                        <span>{priceToLocale(totalPriceDish(newDish))}</span>
                     </TotalPriceItem>
-                    <Button onClick={addToOrder} disabled={openItem.choices && !newOrderOfDish.choice}>
-                        Заказать
+                    <Button onClick={isEdit ? editOrder : addToOrder}
+                        disabled={openItem.choices && !newDish.selectedChoice}>
+                        Добавить
                     </Button>
                 </Content>
             </Modal>

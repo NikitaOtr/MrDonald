@@ -19,13 +19,13 @@ const ToppingChackbox = styled.input`
     margin-right: 5px;
 `;
 
-export const Toppings = ({ toppings, checkToppings  }) => (
+export const Toppings = ({ toppings, checkTopping }) => (
     <>
         <h3>Топинги</h3>
         <ToppingWrap>
             {toppings.map((topping, index)  => (
                 <ToppingLabel key={index}>
-                    <ToppingChackbox type='checkbox' checked={topping.checked} onChange={() => checkToppings(index)}/>
+                    <ToppingChackbox type='checkbox' checked={topping.checked} onChange={() => checkTopping(index)}/>
                     {topping.name}
                 </ToppingLabel>
             ))}

@@ -7,13 +7,17 @@ import { OrderItem } from './OrderItem';
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceOrder } from '../Functions/totalPriceOrder';
 
-const OrderStyled = styled.div`
+const OrderBox = styled.div`
+    background-color: inherit;
     width: 30%;
-    background-color: white;
-    padding: 20px;
+`;
+
+const OrderStyled = styled.div`
+    background-color: inherit;
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    padding: 20px;
+    min-height: 100vh;
 `;
 
 const Title = styled.h2`
@@ -28,7 +32,7 @@ const Content = styled.div`
 const List = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
     margin-bottom: 20px;
 `;
 
@@ -38,27 +42,40 @@ const EmptyList = styled.p`
 `;
 
 const Total = styled.div`
+    width: 350px;
     font-size: 20px;
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
 `;
 
-export const Order = ({ order, setOrder }) => (
-    <OrderStyled>
-        <Title>Ваш Заказ</Title>
-        <Content>
-            {order.length ?
-                <List>
-                    {order.map((dish, index) => <OrderItem key={index} dish={dish} setOrder={setOrder} order={order}/>)}
-                </List> :
-                <EmptyList>Список заказов пуст</EmptyList>
-            }
-        </Content>
-        <Total>
-            <span>Итого</span>
-            <span>{priceToLocale(totalPriceOrder(order))}</span>
-        </Total>
-        <Button>Оформить</Button>
-    </OrderStyled>
-);
+export const Order = ({ order, setOrder, setOpenItem }) => {
+
+    const deleteDish =  indexRemoveDish => {
+        const newOrder = order.filter((dish, index) => index !== indexRemoveDish);
+        setOrder(newOrder);
+    };
+
+    return (
+        <OrderBox>
+            <OrderStyled>
+                <Title>Ваш Заказ</Title>
+                <Content>
+                    {order.length ?
+                        <List>
+                            {order.map((dish, index) =>
+                                <OrderItem key={index} dish={dish} index={index}
+                                    deleteDish={deleteDish} setOpenItem={setOpenItem}/>)}
+                        </List> :
+                        <EmptyList>Список заказов пуст</EmptyList>
+                    }
+                </Content>
+                <Total>
+                    <span>Итого:</span>
+                    <span>{priceToLocale(totalPriceOrder(order))}</span>
+                </Total>
+                <Button>Оформить</Button>
+            </OrderStyled>
+        </OrderBox>
+    );
+};

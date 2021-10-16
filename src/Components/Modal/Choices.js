@@ -20,7 +20,7 @@ const ChoiceRadio = styled.input`
 
 export const Choices = ({ choices, changeChoice, choice }) => (
     <>
-        <h3>Не топинги!!!!!!!</h3>
+        <h3>Выбирайте: </h3>
         <ChoiceWrap>
             {choices.map((possibleChoice, index)  => (
                 <ChoiceLabel key={index}>

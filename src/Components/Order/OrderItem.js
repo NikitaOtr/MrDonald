@@ -6,16 +6,18 @@ import trash from '../../image/trash.svg';
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceDish } from '../Functions/totalPriceDish';
 
-
 const StyleOrderItem = styled.li`
-    display: flex;
+    cursor: pointer;
+    transition: all 0.5s;
+    &:hover {
+        transition: box-shadow 0.3s;
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, .2);
+    }
 `;
 
 const Content = styled.div`
     display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-right: 15px;
+    width: 100%;    
 `;
 
 const Name = styled.span`
@@ -27,8 +29,9 @@ const Count = styled.span`
 `;
 
 const Price = styled.span`
-    width: 120px;
+    width: 105px;
     text-align: right;
+    margin-right: 15px;
 `;
 
 const TrashButton = styled.button`
@@ -41,35 +44,45 @@ const TrashButton = styled.button`
     background-size: cover;
     background-repeat: no-repeat;
     cursor: pointer;
+    transition: all 0.5s;
+    &:hover {
+        transition: background-color 0.3s;
+        background-color: rgba(3, 210, 247, .3);
+    }
 `;
 
-const Toppings = styled.div`
+const Additives = styled.div`
     color: #9a9a9a;
     font-size: 16px;
 `;
 
-export const OrderItem = ({ dish, order, setOrder }) => {
+export const OrderItem = ({ dish, index, deleteDish, setOpenItem }) => {
 
-    const checkedNameToppings = dish.toppings.filter(topping => topping.checked).map(topping => topping.name);
+    const checkedNameToppings = dish.selectedToppings
+        .filter(topping => topping.checked)
+        .map(topping => topping.name);
 
-    const deleteDish = deleteDish => {
-        const newOrder = order.filter(dish => dish !== deleteDish);
-        setOrder(newOrder);
+    const eventFunc = event => {
+        const target = event.target;
+        if (target.matches('#trash')) { return deleteDish(index); }
+        setOpenItem({ ...dish, index });
     };
 
     return (
-        <div>
-            <StyleOrderItem>
-                <Content>
-                    <Name>{dish.name} {dish.choice}</Name>
-                    <Count>{dish.count}</Count>
-                    <Price>{priceToLocale(totalPriceDish(dish))}</Price>
-                </Content>
-                <TrashButton onClick={() => deleteDish(dish)}/>
-            </StyleOrderItem>
-            {checkedNameToppings.length > 0 &&
-                <Toppings><p>{'Топинги: ' + checkedNameToppings.join(', ')}</p></Toppings>
+        <StyleOrderItem onClick={eventFunc} >
+            <Content>
+                <Name>{dish.name}</Name>
+                <Count>{dish.selectedCount}</Count>
+                <Price>{priceToLocale(totalPriceDish(dish))}</Price>
+                <TrashButton id='trash'/>
+            </Content>
+            {dish.selectedChoice &&
+                <Additives><p>{dish.selectedChoice}</p></Additives>
             }
-        </div>
+            {checkedNameToppings.length > 0 &&
+                <Additives><p>{'Топинги: ' + checkedNameToppings.join(', ')}</p></Additives>
+            }
+
+        </StyleOrderItem>
     );
 };

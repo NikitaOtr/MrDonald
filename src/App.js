@@ -5,7 +5,7 @@ import { GlobalStyle } from './Components/GlobalStyle/GlobalStyle';
 import { NavBar } from './Components/NavBar/NavBar';
 import { Banner } from './Components/Banner/Banner';
 import { Menu } from './Components/Menu/Menu';
-import { ModalDish } from './Components/Modal/ModalDish';
+import { ModalItem } from './Components/Modal/ModalItem';
 import { Order } from './Components/Order/Order';
 
 import { useOpenItem } from './Components/Hooks/useOpenItem';
@@ -13,7 +13,6 @@ import { useOrder } from './Components/Hooks/useOrder';
 
 const Main = styled.div`
     display: flex;
-    flex-direction: row;
     background-color: #fff;
 `;
 
@@ -28,10 +27,10 @@ function App() {
             <NavBar/>
             <Banner/>
             <Main>
-                <Order {...hookOrder}/>
                 <Menu {...hookOpenItem}/>
+                <Order {...hookOrder } {...hookOpenItem}/>
             </Main>
-            {hookOpenItem.openItem && <ModalDish {...hookOpenItem} {...hookOrder}/>}
+            {hookOpenItem.openItem && <ModalItem {...hookOpenItem} {...hookOrder}/>}
         </>
     );
 }
