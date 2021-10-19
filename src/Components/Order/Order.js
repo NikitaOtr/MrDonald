@@ -49,12 +49,17 @@ const Total = styled.div`
     justify-content: space-between;
 `;
 
-export const Order = ({ order, setOrder, setOpenItem }) => {
+export const Order = ({ order, setOrder, setOpenItem, authentication, logIn }) => {
 
     const deleteDish =  indexRemoveDish => {
         const newOrder = order.filter((dish, index) => index !== indexRemoveDish);
         setOrder(newOrder);
     };
+
+    const makeAnOrder = () => {
+        if (!authentication) { logIn(); }
+    };
+
 
     return (
         <OrderBox>
@@ -64,7 +69,7 @@ export const Order = ({ order, setOrder, setOpenItem }) => {
                     {order.length ?
                         <List>
                             {order.map((dish, index) =>
-                                <OrderItem key={index} dish={dish} index={index}
+                                <OrderItem key={index} dish={dish} indexDish={index}
                                     deleteDish={deleteDish} setOpenItem={setOpenItem}/>)}
                         </List> :
                         <EmptyList>Список заказов пуст</EmptyList>
@@ -74,7 +79,7 @@ export const Order = ({ order, setOrder, setOpenItem }) => {
                     <span>Итого:</span>
                     <span>{priceToLocale(totalPriceOrder(order))}</span>
                 </Total>
-                <Button>Оформить</Button>
+                <Button onClick={makeAnOrder}>Оформить</Button>
             </OrderStyled>
         </OrderBox>
     );

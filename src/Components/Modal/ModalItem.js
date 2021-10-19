@@ -115,7 +115,7 @@ export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
                     </TotalPriceItem>
                     <Button onClick={isEdit ? editOrder : addToOrder}
                         disabled={openItem.choices && !newDish.selectedChoice}>
-                        Добавить
+                        { isEdit ? 'Редактировать' : 'Добавить' }
                     </Button>
                 </Content>
             </Modal>

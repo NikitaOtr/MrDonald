@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import dbMenu from '../../BD/DBMenu';
+import dbMenu from '../../DB/DBMenu';
 
 import { MenuItem } from './MenuItem';
 

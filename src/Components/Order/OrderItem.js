@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 import trash from '../../image/trash.svg';
@@ -56,16 +56,18 @@ const Additives = styled.div`
     font-size: 16px;
 `;
 
-export const OrderItem = ({ dish, index, deleteDish, setOpenItem }) => {
+export const OrderItem = ({ dish, indexDish, deleteDish, setOpenItem }) => {
 
     const checkedNameToppings = dish.selectedToppings
         .filter(topping => topping.checked)
         .map(topping => topping.name);
 
+    const refDeleteButton = useRef(null);
+
     const eventFunc = event => {
         const target = event.target;
-        if (target.matches('#trash')) { return deleteDish(index); }
-        setOpenItem({ ...dish, index });
+        if (target === refDeleteButton.current) { return deleteDish(indexDish); }
+        setOpenItem({ ...dish, index: indexDish });
     };
 
     return (
@@ -74,7 +76,7 @@ export const OrderItem = ({ dish, index, deleteDish, setOpenItem }) => {
                 <Name>{dish.name}</Name>
                 <Count>{dish.selectedCount}</Count>
                 <Price>{priceToLocale(totalPriceDish(dish))}</Price>
-                <TrashButton id='trash'/>
+                <TrashButton ref={refDeleteButton}/>
             </Content>
             {dish.selectedChoice &&
                 <Additives><p>{dish.selectedChoice}</p></Additives>
@@ -82,7 +84,6 @@ export const OrderItem = ({ dish, index, deleteDish, setOpenItem }) => {
             {checkedNameToppings.length > 0 &&
                 <Additives><p>{'Топинги: ' + checkedNameToppings.join(', ')}</p></Additives>
             }
-
         </StyleOrderItem>
     );
 };

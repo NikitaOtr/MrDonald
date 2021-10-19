@@ -23,7 +23,7 @@ export const CountItem = ({ countItem, changeCountItem }) => (
         <span>Количество</span>
         <div>
             <ButtonCount onClick={() => changeCountItem(countItem - 1)}>-</ButtonCount>
-            <CountInput value={countItem} onChange={event => changeCountItem(event.target.value)} type='number'/>
+            <CountInput value={countItem} onChange={event => changeCountItem(+event.target.value)} type='number'/>
             <ButtonCount onClick={() => changeCountItem(countItem + 1)}>+</ButtonCount>
         </div>
     </CountWrapper>
