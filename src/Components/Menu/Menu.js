@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import dbMenu from '../../DB/DBMenu';
+// import dbMenu from '../../DB/DBMenu';
 
 import { MenuItem } from './MenuItem';
+import { useFetch } from '../Hooks/useFetch';
 
 const MenuBox = styled.section`
     background-color: inherit;
@@ -32,22 +33,31 @@ const List = styled.ul`
     gap: 20px;
 `;
 
-export const Menu = ({ setOpenItem }) => (
-    <MenuBox>
-        <MenuStyled>
-            <Section>
-                <H2>Бургеры</H2>
-                <List>
-                    {dbMenu.burgers.map(item => <MenuItem key={item.id} item={item} setOpenItem={setOpenItem}/>)}
-                </List>
-            </Section>
+export const Menu = ({ setOpenItem }) => {
+    const res = useFetch();
+    const dbMenu = res.response;
+    return (
+        <MenuBox>
+            {res.response ?
+                <MenuStyled>
+                    <Section>
+                        <H2>Бургеры</H2>
+                        <List>
+                            {dbMenu.burger.map(item => <MenuItem key={item.id}
+                                item={item} setOpenItem={setOpenItem}/>)}
+                        </List>
+                    </Section>
 
-            <Section>
-                <H2>Закуски / Напитки</H2>
-                <List>
-                    {dbMenu.other.map(item => <MenuItem key={item.id} item={item} setOpenItem={setOpenItem}/>)}
-                </List>
-            </Section>
-        </MenuStyled>
-    </MenuBox>
-);
+                    <Section>
+                        <H2>Закуски / Напитки</H2>
+                        <List>
+                            {dbMenu.other.map(item => <MenuItem key={item.id} item={item} setOpenItem={setOpenItem}/>)}
+                        </List>
+                    </Section>
+                </MenuStyled> : res.error ?
+                    <div>Извините. Мы исправим это</div> :
+                    <div>Загрузка...</div>
+            }
+        </MenuBox>
+    );
+};

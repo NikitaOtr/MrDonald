@@ -1,7 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import styled from 'styled-components';
+import 'firebase/compat/database';
 
 import { GlobalStyle } from './Components/GlobalStyle/GlobalStyle';
 import { NavBar } from './Components/NavBar/NavBar';
@@ -13,6 +15,7 @@ import { Order } from './Components/Order/Order';
 import { useOpenItem } from './Components/Hooks/useOpenItem';
 import { useOrder } from './Components/Hooks/useOrder';
 import { useAuth } from './Components/Hooks/useAuth';
+import { useTitle } from './Components/Hooks/useTitle';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAbhCf4BStFZIHzjQDHpo390K5QqHX9TWk",
@@ -36,6 +39,7 @@ function App() {
     const hookAuth = useAuth(firebase.auth);
     const hookOpenItem = useOpenItem();
     const hookOrder = useOrder();
+    useTitle(hookOpenItem.openItem);
 
     return (
         <>
@@ -44,7 +48,7 @@ function App() {
             <Banner/>
             <Main>
                 <Menu {...hookOpenItem}/>
-                <Order {...hookOrder } {...hookOpenItem} {...hookAuth}/>
+                <Order {...hookOrder } {...hookOpenItem} {...hookAuth} firebaseDatabase={firebase.database}/>
             </Main>
             {hookOpenItem.openItem && <ModalItem {...hookOpenItem} {...hookOrder}/>}
         </>

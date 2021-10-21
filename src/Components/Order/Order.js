@@ -6,6 +6,7 @@ import { OrderItem } from './OrderItem';
 
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceOrder } from '../Functions/totalPriceOrder';
+import { projection } from '../Functions/projection';
 
 const OrderBox = styled.div`
     background-color: inherit;
@@ -49,17 +50,43 @@ const Total = styled.div`
     justify-content: space-between;
 `;
 
-export const Order = ({ order, setOrder, setOpenItem, authentication, logIn }) => {
+const rulesData = {
+    name: ['name'],
+    price: ['price'],
+    count: ['selectedCount'],
+    toppings: ['selectedToppings',
+        arr => arr.filter(item => item.checked).map(item => item.name),
+        arr => (arr.length ? arr : 'no topping'),
+    ],
+    choice: ['selectedChoice', item => (item ? item : 'no choice')],
+};
 
-    const deleteDish =  indexRemoveDish => {
-        const newOrder = order.filter((dish, index) => index !== indexRemoveDish);
+export const Order = ({ order, setOrder, setOpenItem, authentication, logIn, firebaseDatabase }) => {
+
+    const dataBase = firebaseDatabase();
+
+    const sendOrder = () => {
+        const newOrder = order.map(projection(rulesData));
+        dataBase.ref('order').push().set({
+            name: authentication.displayName,
+            email: authentication.email,
+            order: newOrder,
+        });
+        setOrder([]);
+    };
+
+    const deleteDish =  indexDeleteDish => {
+        const newOrder = order.filter((_, index) => index !== indexDeleteDish);
         setOrder(newOrder);
     };
 
     const makeAnOrder = () => {
-        if (!authentication) { logIn(); }
+        if (!authentication) {
+            sendOrder();
+        } else {
+            logIn();
+        }
     };
-
 
     return (
         <OrderBox>
