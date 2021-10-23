@@ -10,6 +10,7 @@ import { projection } from '../Functions/projection';
 
 const OrderBox = styled.div`
     background-color: inherit;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, .2);
     width: 30%;
 `;
 
