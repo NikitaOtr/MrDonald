@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import logoImg from '../../image/logo.svg';
 import enterImg from '../../image/sign.svg';
+
+import { Context } from '../Functions/context';
 
 const NavBarStyled = styled.header`
     height: 80px;
@@ -50,24 +52,29 @@ const ImgEnter = styled.img`
     width: 40px;
 `;
 
-export const NavBar = ({ authentication, logIn, logOut }) => (
-    <NavBarStyled>
-        <Logo>
-            <ImgLogo src={logoImg} alt='logo'/>
-            <H1>{'MrDonald\'s'}</H1>
-        </Logo>
-        {!authentication ?
-            <ButtonEnter onClick={logIn}>
-                <ImgEnter src={enterImg} alt='enter'/>
-                <p>Вход</p>
-            </ButtonEnter> :
-            <Content>
-                <UserName>{authentication.displayName}</UserName>
-                <ButtonEnter onClick={logOut}>
-                    <ImgEnter src={enterImg} alt={authentication.displayName}/>
-                    <p>Выход</p>
-                </ButtonEnter>
-            </Content>
-        }
-    </NavBarStyled>
-);
+export const NavBar = () => {
+
+    const { hookAuth: { authentication, logIn, logOut } } = useContext(Context);
+
+    return (
+        <NavBarStyled>
+            <Logo>
+                <ImgLogo src={logoImg} alt='logo'/>
+                <H1>{'MrDonald\'s'}</H1>
+            </Logo>
+            {!authentication ?
+                <ButtonEnter onClick={logIn}>
+                    <ImgEnter src={enterImg} alt='enter'/>
+                    <p>Вход</p>
+                </ButtonEnter> :
+                <Content>
+                    <UserName>{authentication.displayName}</UserName>
+                    <ButtonEnter onClick={logOut}>
+                        <ImgEnter src={enterImg} alt={authentication.displayName}/>
+                        <p>Выход</p>
+                    </ButtonEnter>
+                </Content>
+            }
+        </NavBarStyled>
+    );
+};

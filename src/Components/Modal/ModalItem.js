@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
+import { Overlay } from '../Style/Overlay';
+
 import { CountItem } from './CountItem';
-import { Button } from '../Buttons/Mainbutton';
+import { Button } from '../Style/Mainbutton';
 import { Toppings } from './Toppings';
 import { Choices } from './Choices';
 
@@ -12,19 +14,7 @@ import { useChoices } from '../Hooks/useChoices';
 
 import { priceToLocale } from '../Functions/priceToLocale';
 import { totalPriceDish } from '../Functions/totalPriceDish';
-
-const Overlay = styled.div`
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    z-index: 20;
-`;
+import { Context } from '../Functions/context';
 
 const Modal = styled.div`
     background-color: #ffffff;
@@ -66,7 +56,10 @@ const TotalPriceItem = styled.div`
     justify-content: center;
 `;
 
-export const ModalItem = ({ openItem,  setOpenItem, order, setOrder }) => {
+export const ModalItem = () => {
+
+    const { hookOpenItem: { openItem, setOpenItem },
+        hookOrder: { order, setOrder } } = useContext(Context);
 
     const isEdit = openItem.index > -1;
 
